@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme {
+  --color-game-dark: #050505;
+  --color-game-green: #00ff41;
+  --color-game-accent: #008f11;
+  --color-game-amber: #ffb000;
+  --color-game-blue: #00f0ff;
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: 0%; }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.95; }
+  20% { opacity: 0.98; }
+  25% { opacity: 0.95; }
+  100% { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px var(--color-game-green); }
+  50% { box-shadow: 0 0 20px var(--color-game-green); }
+  100% { box-shadow: 0 0 5px var(--color-game-green); }
+}
+
+/* Apparition d'un conseil du Tactical Advisor */
+@keyframes advisor-in {
+  0% { opacity: 0; transform: translateX(-6px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+.advisor-tip {
+  animation: advisor-in 0.35s ease-out;
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.5);
+}
+
+body {
+  background-color: var(--color-game-dark);
+  color: var(--color-game-green);
+  font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  overflow: hidden;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+/* CRT Effect Overlay */
+.crt::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+.crt::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 101;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+.game-btn {
+  @apply relative overflow-hidden bg-transparent border-2 border-game-green text-game-green px-6 py-2 rounded-none font-bold uppercase tracking-widest transition-all duration-200 hover:bg-game-green hover:text-black hover:shadow-[0_0_15px_#00ff41];
+}
+
+.game-btn::before {
+  content: '';
+  @apply absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transition-all duration-500;
+}
+
+.game-btn:hover::before {
+  @apply left-full;
+}
+
+.auth-input {
+  @apply bg-black/60 border-b-2 border-game-green/50 text-game-green px-4 py-3 rounded-none focus:outline-none focus:border-game-green transition-all placeholder:text-game-green/30;
+}
+
+.modal-container {
+  @apply fixed inset-0 flex items-center justify-center bg-black/90 z-50 p-4;
+}
+
+.modal-box {
+  @apply bg-[#0a0a0a] border-2 border-game-green p-8 rounded-none shadow-[0_0_30px_rgba(0,255,65,0.2)] max-w-xl w-full relative;
+}
+
+/* Corner Accents for Retro UI */
+.corner-accent {
+  @apply absolute w-4 h-4 border-game-green border-2;
+}
+.ca-tl { @apply top-0 left-0 border-r-0 border-b-0; }
+.ca-tr { @apply top-0 right-0 border-l-0 border-b-0; }
+.ca-bl { @apply bottom-0 left-0 border-r-0 border-t-0; }
+.ca-br { @apply bottom-0 right-0 border-l-0 border-t-0; }
+
+.dex-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 mt-6;
+}
+
+.dex-card {
+  @apply bg-black/40 border border-game-green/30 p-4 relative transition-all hover:border-game-green hover:bg-game-green/5;
+}
+
+.hud-panel {
+  @apply bg-black/80 border-b-2 border-game-green p-4 flex justify-between items-center backdrop-blur-md;
+}
+
+.tower-slot {
+  @apply relative flex flex-col items-center p-4 border-2 border-game-green/20 transition-all hover:border-game-green/60;
+}
+
+.tower-slot.selected {
+  @apply border-game-green bg-game-green/10 shadow-[inset_0_0_10px_rgba(0,255,65,0.3)];
+}

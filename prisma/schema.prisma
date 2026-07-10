@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int      @id @default(autoincrement())
+  username          String   @unique
+  password          String
+  credits           Int      @default(0)
+  maxWave           Int      @default(0)
+  maxLevel          Int      @default(1) // Tracks story mode progression
+  
+  // Permanent Upgrades levels
+  damageLevel       Int      @default(1)
+  fusionLimitLevel  Int      @default(1)
+  coffeeStartLevel  Int      @default(1)
+  
+  // Stats tracking (JSON strings)
+  enemyKills        String   @default("{}")
+  towersBuilt       String   @default("{}")
+  
+  // Discovery tracking (JSON strings)
+  discoveredEnemies String   @default("[]")
+  discoveredTowers  String   @default("[]")
+  
+  createdAt         DateTime @default(now())
+}
