@@ -54,6 +54,29 @@
 | 🟡 Should | Entity Database | Bestiaire débloqué au fur et à mesure des rencontres. | Joueur |
 | 🟢 Nice | AI Lore Gen | Génération de noms et de "lore" uniques pour les boss. | Joueur |
 
+**Statut** : les 5 fonctionnalités Must et les 2 Should sont implémentées et
+stabilisées (cf. `TESTING.md`). Seule AI Lore Gen (Nice) reste à faire —
+suivi dans le board ci-dessous.
+
+### 1.5 Dépendances entre fonctionnalités
+
+- **Authentification** bloque tout le reste (JWT requis pour la connexion
+  Socket.io — cf. `TESTING.md`, bug corrigé sur l'ordre connexion/auth).
+- **Game Engine TD** est le socle de **Story Mode**, **Permanent Upgrades**
+  (les crédits ne s'obtiennent qu'en jouant) et **AI Advisor** (qui analyse
+  l'état du moteur en direct).
+- **Leaderboard** dépend de **Game Engine TD** (classement sur `maxWave`).
+- **Entity Database** dépend des rencontres en **Story Mode** / **Mode
+  Infini** (déblocage progressif par `discoveredEnemies`/`discoveredTowers`).
+- **AI Lore Gen** dépendrait de la même configuration LLM que **AI Advisor**
+  (`ADVISOR_API_KEY`, cf. `server/socket/tacticalAdvisor.js`) — aucun
+  blocage technique, juste pas encore implémenté.
+
+### 1.6 Board & suivi
+
+Board GitHub Projects (issues restantes, labellisées `must`/`should`/
+`nice`/`tech-debt`) : https://github.com/users/Perfweb-net/projects/2
+
 ---
 
 ## 💾 2. Modélisation de la base de données

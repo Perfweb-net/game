@@ -95,3 +95,10 @@ Voir `.env.example` :
 | `PORT` | port du serveur Express |
 | `ADVISOR_API_KEY` | (optionnel) active l'AI Tactical Advisor via un vrai LLM ; sans clé, fallback heuristique local |
 | `ADVISOR_API_URL` / `ADVISOR_MODEL` | (optionnel) pour pointer vers une API OpenAI-compatible autre que Groq |
+
+## Suivi de projet
+
+- **Board (MoSCoW, backlog)** : https://github.com/users/Perfweb-net/projects/2
+- **Cadrage complet** (arbo, wireframes, MCD/MLD/MPD, dépendances) : [`cadrage.md`](./cadrage.md)
+- **Préparation playtest** (scénarios, objectifs, instrumentation) : [`PLAYTEST.md`](./PLAYTEST.md)
+- **Script de démo** : [`DEMO.md`](./DEMO.md)
