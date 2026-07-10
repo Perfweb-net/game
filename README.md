@@ -34,20 +34,20 @@ tests/              tests end-to-end (Playwright)
 
 ## Installation
 
+Une seule commande, à la racine :
+
 ```bash
-# à la racine : dépendances serveur
 npm install
-
-# dépendances client
-npm --prefix client install
-
-# variables d'environnement
-cp .env.example .env
-# éditer .env si besoin (clé IA optionnelle, port...)
-
-# base de données (SQLite + Prisma)
-npm run migrate
 ```
+
+Elle installe les dépendances serveur, puis déclenche automatiquement
+(`scripts/postinstall.js`) : l'installation des dépendances client, la
+création de `.env` depuis `.env.example` (si absent), et l'application des
+migrations Prisma (base SQLite). Rien d'autre à faire avant de lancer le
+projet — voir plus bas.
+
+Éditer `.env` seulement si besoin (activer l'IA via une vraie clé, changer
+le port...) : voir [Variables d'environnement](#variables-denvironnement).
 
 ## Lancer en développement
 

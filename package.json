@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node scripts/postinstall.js",
     "test": "playwright test",
     "start": "node server/server.js",
     "dev": "nodemon server/server.js",
