@@ -54,7 +54,7 @@ npm run migrate
 Deux process en parallèle :
 
 ```bash
-# Terminal 1 : API + Socket.io (port défini dans .env, 3001 par défaut)
+# Terminal 1 : API + Socket.io (port défini dans .env, 3000 par défaut)
 npm run dev
 
 # Terminal 2 : client Vite (proxy /api et /socket.io vers le serveur)
@@ -92,9 +92,15 @@ Voir `.env.example` :
 | Variable | Rôle |
 |---|---|
 | `DATABASE_URL` | chemin de la base SQLite (Prisma) |
-| `PORT` | port du serveur Express |
-| `ADVISOR_API_KEY` | (optionnel) active l'AI Tactical Advisor via un vrai LLM ; sans clé, fallback heuristique local |
+| `PORT` | port du serveur Express (3000 par défaut) |
+| `JWT_SECRET` | secret de signature des tokens JWT (auth). Optionnel en local (valeur par défaut de secours dans le code), à définir explicitement pour toute utilisation réelle. Génère une valeur avec `openssl rand -base64 32`. |
+| `ADVISOR_API_KEY` | (optionnel) active l'AI Tactical Advisor via un vrai LLM (service externe Groq, gratuit sans CB) ; sans clé, fallback heuristique 100% local, aucun compte requis |
 | `ADVISOR_API_URL` / `ADVISOR_MODEL` | (optionnel) pour pointer vers une API OpenAI-compatible autre que Groq |
+
+Aucun service externe n'est requis pour lancer le projet : la base est du
+SQLite local (fichier, pas de compte à créer) et l'IA fonctionne sans clé
+(mode heuristique). Groq n'est nécessaire que si on veut activer les
+conseils générés par un vrai LLM.
 
 ## Suivi de projet
 
