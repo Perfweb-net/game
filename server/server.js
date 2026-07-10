@@ -8,6 +8,7 @@ const GameLogic = require('./socket/gameLogic');
 const auth = require('./controllers/authController');
 const gameCtrl = require('./controllers/gameController');
 const { verifyToken } = require('./middleware/auth');
+const { logEvent } = require('./playtestLogger');
 
 const app = express();
 const server = http.createServer(app);
@@ -86,6 +87,8 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         console.log(`User disconnected: ${socket.id}`);
+        const s = game.sessions[socket.id];
+        if (s) logEvent('session_abandoned', { userId: s.userId, mode: s.mode, levelId: s.levelId, wave: s.wave, durationSec: Math.round(s.tick / 30) });
         delete game.sessions[socket.id];
     });
 });

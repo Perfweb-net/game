@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const { createAdvisor } = require('./tacticalAdvisor');
+const { logEvent } = require('../playtestLogger');
 const prisma = new PrismaClient();
 
 const createEmptyGrid = () => Array.from({ length: 15 }, () => Array(20).fill(0));
@@ -150,6 +151,7 @@ class GameLogic {
             stats: { kills: {}, built: {} },
             advisorTick: 0, nextAdviseAt: 45, advisorBusy: false, lastTip: ''
         };
+        logEvent('session_start', { userId, mode, levelId });
     }
 
     update() {
@@ -330,6 +332,10 @@ class GameLogic {
                 enemyKills: JSON.stringify(currentKills), towersBuilt: JSON.stringify(currentBuilt),
                 discoveredEnemies: JSON.stringify(Array.from(discoveredEnemies)), discoveredTowers: JSON.stringify(Array.from(discoveredTowers))
             }
+        });
+        logEvent('session_end', {
+            userId: s.userId, mode: s.mode, levelId: s.levelId, isWin, wave: s.wave,
+            durationSec: Math.round(s.tick / 30), towersBuilt: s.stats.built, kills: s.stats.kills, earnedCredits
         });
         this.io.to(socketId).emit('gameOver', { earnedCredits, wave: s.wave, isWin });
         delete this.sessions[socketId];
