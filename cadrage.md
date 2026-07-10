@@ -2,7 +2,7 @@
 
 - **Module :** Développement d'application front/back
 - **Étudiant :** SAUGUES Pierre
-- **Dépôt GitHub :** [LIEN GITHUB]
+- **Dépôt GitHub :** https://github.com/Perfweb-net/game
 
 ---
 

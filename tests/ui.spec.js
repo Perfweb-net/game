@@ -35,8 +35,9 @@ test('Verify Game UI and Tower Interaction', async ({ page }) => {
   const canvas = page.locator('canvas');
   await canvas.click({ position: { x: 400, y: 300 } });
 
-  // Wait a bit for server sync
-  await page.waitForTimeout(1000);
+  // Wait for the actual server round-trip instead of a fixed delay (avoids flakiness on
+  // slow/cold starts): level 1 starts with 150 coffee, tower_console costs 50.
+  await expect(page.locator('text=☕ 100')).toBeVisible();
 
   // Click same spot to select tower
   await canvas.click({ position: { x: 400, y: 300 } });
