@@ -83,6 +83,8 @@ npx playwright install   # une seule fois
 npm test
 ```
 
+Détail des scénarios couverts, bugs corrigés grâce aux tests, et protocole de test manuel : voir [`TESTING.md`](./TESTING.md).
+
 ## Variables d'environnement
 
 Voir `.env.example` :
